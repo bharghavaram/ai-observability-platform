@@ -1,3 +1,5 @@
+> **📅 Project Period:** Nov 2024 – Dec 2024 &nbsp;|&nbsp; **Status:** Completed &nbsp;|&nbsp; **Author:** [Bharghava Ram Vemuri](https://github.com/bharghavaram)
+
 # AI Observability & Cost Intelligence Platform
 
 > Real-time LLM monitoring with token cost tracking, hallucination detection, drift alerting, and multi-model analytics
