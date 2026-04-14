@@ -1,49 +1,113 @@
-> **📅 Project Period:** Nov 2024 – Dec 2024 &nbsp;|&nbsp; **Status:** Completed &nbsp;|&nbsp; **Author:** [Bharghava Ram Vemuri](https://github.com/bharghavaram)
+📅 Project Period: Nov 2024 – Dec 2024 | Status: Completed | Author: Bharghava Ram Vemuri
 
-# AI Observability & Cost Intelligence Platform
+# 📊 LLM Observability & Cost Intelligence Platform
 
-> Real-time LLM monitoring with token cost tracking, hallucination detection, drift alerting, and multi-model analytics
+**Production-grade system for monitoring LLM applications — tracking cost, latency, hallucinations, and model drift in real time.**
 
-[![Python](https://img.shields.io/badge/Python-3.11-blue)](https://python.org)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.115-green)](https://fastapi.tiangolo.com)
-[![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4o-purple)](https://openai.com)
-[![Anthropic](https://img.shields.io/badge/Anthropic-Claude-orange)](https://anthropic.com)
+---
 
-## Overview
+## 📊 Observability Dashboard
 
-As LLM applications scale to production, monitoring becomes critical. This platform provides **real-time observability** for any LLM-powered application — tracking costs, latency, quality, and safety metrics across OpenAI and Anthropic models.
+Real-time visibility into token usage, cost trends, latency (P50/P95), and model performance.
 
-## Why This Matters
+![Dashboard](docs/images/dashboard.jpg)
 
-- GPT-4 API costs can spiral without tracking (a single misconfigured prompt costs 100x more)
-- Response quality degrades silently (model drift, hallucinations) without automated detection
-- No standard tooling exists for cross-model performance comparison
+---
 
-## Architecture
+## ⚙️ Platform Features
 
+Comprehensive monitoring across cost, latency, quality, and reliability metrics for LLM systems.
+
+![Features](docs/images/features.jpg)
+
+---
+
+## 🏗️ System Architecture
+
+End-to-end observability pipeline wrapping LLM calls with tracking, analysis, and alerting layers.
+
+![Architecture](docs/images/architecture.jpg)
+
+---
+
+## 🧠 Overview
+
+As LLM-powered applications scale, **observability becomes essential** to ensure cost control, performance, and reliability.
+
+This platform provides:
+
+* Per-request cost tracking
+* Latency monitoring (P50/P95)
+* Hallucination detection using LLM-as-a-judge
+* Drift detection against baseline responses
+* Multi-model analytics across providers
+
+---
+
+## 🚀 Why This Matters
+
+* LLM costs can escalate rapidly without visibility
+* Latency directly impacts user experience
+* Hallucinations reduce trust in AI systems
+* Model outputs drift over time without detection
+* No unified observability layer exists for LLM systems
+
+---
+
+## ⚙️ Core Capabilities
+
+| Capability              | Description                              |
+| ----------------------- | ---------------------------------------- |
+| Cost Tracking           | Token usage and USD cost per request     |
+| Latency Monitoring      | P50/P95 latency metrics                  |
+| Hallucination Detection | LLM-based factual consistency scoring    |
+| Drift Detection         | Detects degradation vs baseline outputs  |
+| Multi-Model Analytics   | Compare GPT, Claude, and other models    |
+| Alerts                  | Configurable cost and latency thresholds |
+
+---
+
+## 🔄 Observability Pipeline
+
+```text
+LLM Request
+    ↓
+Tracked Wrapper
+    ↓
+Metrics Collection
+ - Token usage
+ - Latency
+ - Model metadata
+    ↓
+Analysis Layer
+ - Cost calculation
+ - Hallucination scoring
+ - Drift detection
+    ↓
+Storage + Aggregation
+    ↓
+Dashboard + Alerts
 ```
-LLM Calls → Tracked Wrapper → Metrics Store
-                ↓
-        ┌───────────────────┐
-        │  Cost Calculator  │ → Real-time cost by model
-        │  Latency Tracker  │ → P50/P95 latency analytics
-        │  Hallucination    │ → Judge-LLM evaluation
-        │  Drift Detector   │ → Baseline comparison
-        └───────────────────┘
-                ↓
-        Alerts + Analytics Dashboard
+
+---
+
+## 📊 Example Observability Output
+
+```json
+{
+  "model": "gpt-4o",
+  "cost_usd": 0.021,
+  "latency_ms": 1820,
+  "p95_latency_ms": 4200,
+  "hallucination_score": 0.18,
+  "drift_score": 0.07,
+  "status": "SAFE"
+}
 ```
 
-## Key Features
+---
 
-- **Per-call cost tracking** – exact USD cost for every GPT-4o, Claude, and Mistral call
-- **Latency percentiles** – P50/P95 latency monitoring with threshold alerts
-- **Hallucination detection** – judge-LLM evaluates factual accuracy of responses
-- **Drift detection** – compares responses against baselines to detect quality degradation
-- **Multi-model analytics** – compare GPT-4o vs Claude vs GPT-3.5 side by side
-- **Configurable alerts** – cost and latency threshold notifications
-
-## Quick Start
+## ⚡ Quick Start
 
 ```bash
 git clone https://github.com/bharghavaram/ai-observability-platform
@@ -53,50 +117,111 @@ cp .env.example .env
 uvicorn main:app --reload
 ```
 
-## API Endpoints
+---
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/v1/observe/call` | Make a tracked LLM call |
-| POST | `/api/v1/observe/hallucination` | Check for hallucinations |
-| POST | `/api/v1/observe/drift` | Detect response drift |
-| GET | `/api/v1/observe/analytics` | Cost + latency analytics |
-| GET | `/api/v1/observe/calls` | Recent call history |
-| GET | `/api/v1/observe/alerts` | Active alerts |
+## 🐳 Run with Docker
 
-### Example: Tracked Call
+```bash
+docker-compose up --build
+```
+
+API: http://localhost:8000
+Docs: http://localhost:8000/docs
+
+---
+
+## 🔌 API Endpoints
+
+| Method | Endpoint                      | Description            |
+| ------ | ----------------------------- | ---------------------- |
+| POST   | /api/v1/observe/call          | Track LLM call         |
+| POST   | /api/v1/observe/hallucination | Evaluate hallucination |
+| POST   | /api/v1/observe/drift         | Detect output drift    |
+| GET    | /api/v1/observe/analytics     | Cost & latency metrics |
+| GET    | /api/v1/observe/calls         | Call history           |
+| GET    | /api/v1/observe/alerts        | Active alerts          |
+
+---
+
+## 📥 Example Request
 
 ```bash
 curl -X POST "http://localhost:8000/api/v1/observe/call" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "prompt": "Explain transformer attention",
-    "model": "gpt-4o",
-    "tags": {"feature": "search", "user_id": "u123"}
-  }'
+-H "Content-Type: application/json" \
+-d '{
+  "prompt": "Explain transformer attention",
+  "model": "gpt-4o"
+}'
 ```
 
-### Example: Analytics Response
+---
 
-```json
-{
-  "period_hours": 24,
-  "total_calls": 142,
-  "total_cost_usd": 3.47,
-  "avg_latency_ms": 1820.3,
-  "p95_latency_ms": 4200.0,
-  "by_model": {
-    "gpt-4o": {"calls": 98, "total_cost": 2.94, "avg_latency_ms": 2100.0},
-    "gpt-4o-mini": {"calls": 44, "total_cost": 0.53, "avg_latency_ms": 890.0}
-  }
-}
+## 🧱 Project Structure
+
+```text
+ai-observability-platform/
+├── app/services/observability_service.py
+├── tests/
+├── docs/images/
+├── main.py
+├── Dockerfile
+├── docker-compose.yml
+└── requirements.txt
 ```
 
-## Cost Reference Table
+---
 
-| Model | Input (per 1K tokens) | Output (per 1K tokens) |
-|-------|----------------------|------------------------|
-| GPT-4o | $0.005 | $0.015 |
-| GPT-4o-mini | $0.00015 | $0.0006 |
-| Claude 3.5 Sonnet | $0.003 | $0.015 |
-| Claude 3 Haiku | $0.00025 | $0.00125 |
+## ⚙️ Environment Variables
+
+```text
+OPENAI_API_KEY=
+ANTHROPIC_API_KEY=
+LATENCY_THRESHOLD_MS=3000
+COST_ALERT_THRESHOLD=5
+```
+
+---
+
+## 🧪 Testing
+
+```bash
+pytest tests/ -v
+```
+
+---
+
+## 🛠️ Tech Stack
+
+* Python 3.11
+* FastAPI + Uvicorn
+* OpenAI & Anthropic APIs
+* Docker + Docker Compose
+* Pytest
+
+---
+
+## 🎯 Key Highlights
+
+* Production-ready LLM observability system
+* Multi-model monitoring and analytics
+* LLM-as-a-judge evaluation for hallucinations
+* Cost and latency optimization insights
+* Real-time monitoring architecture
+
+---
+
+## 📌 Future Improvements
+
+* Interactive dashboard UI (Streamlit/React)
+* Model routing for cost optimization
+* Advanced anomaly detection
+* Integration with logging platforms (ELK, Datadog)
+
+---
+
+## 👨‍💻 Author
+
+**Bharghava Ram Vemuri**
+AI Engineer | LLM Systems | RAG | Multi-Agent Architectures
+
+---
