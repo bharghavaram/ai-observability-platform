@@ -17,7 +17,11 @@
 
 ---
 
-## 🎯 Problem Statement
+<div align="center">
+  <img src="https://raw.githubusercontent.com/bharghavaram/ai-observability-platform/main/docs/images/demo.svg" alt="ai-observability-platform demo" width="820"/>
+</div>
+
+--- 🎯 Problem Statement
 
 LLMs fail silently in production — hallucinations go undetected, token costs spiral without visibility, response quality degrades over time, and there is no unified dashboard to monitor GPT-4o, Claude, and Mistral simultaneously. Engineering teams discover problems only after user complaints. This platform provides real-time observability across all LLM calls with cost tracking, judge-LLM hallucination detection, quality drift alerts, and a Streamlit analytics dashboard.
 
